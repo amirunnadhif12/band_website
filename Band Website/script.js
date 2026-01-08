@@ -1,6 +1,43 @@
-document.addEventListener('DOMContentLoaded', function(){
-    // Tour card reveal animation on scroll
-    const tourCards = document.querySelectorAll('.tour-img-card');
+// Intersection Observer untuk animasi saat scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe band section untuk animasi
+document.addEventListener('DOMContentLoaded', function() {
+    const bandSection = document.querySelector('.band');
+    if (bandSection) {
+        observer.observe(bandSection);
+    }
+});
+
+var buyTicket = document.getElementsByClassName("tour-button");
+var modal = document.getElementById("modal");
+var modalClose = document.getElementsByClassName("modal-close-button");
+for(i=0;i<=2;i++){
+    buyTicket[i].addEventListener("click",()=>{
+        modal.style.display="block";
+    })
+}
+
+for(i=0;i<=0;i++){
+    modalClose[i].addEventListener("click",()=>{
+        modal.style.display="none";
+    })
+}
+document.querySelector('.search').addEventListener('click', function(event) {
+    const searchContainer = document.getElementById('search-container');
+    const searchInput = document.getElementById('search-input');
     
     if('IntersectionObserver' in window){
         const cardObserver = new IntersectionObserver((entries, observer) => {
