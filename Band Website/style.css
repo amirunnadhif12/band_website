@@ -155,7 +155,15 @@ justify-content:space-around;
 
 /************************************Tour******************/
 .tour{
-    background-color:rgb(24, 22, 22);
+    background:linear-gradient(135deg, rgba(24,22,22,1) 0%, rgba(40,40,40,1) 100%);
+    position:relative;
+}
+.tour:before{
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:2px;
+    background:linear-gradient(90deg, transparent, #28b56f, transparent);
 }
 
 /*****tour details***/
@@ -163,6 +171,28 @@ justify-content:space-around;
     color:white;
     margin-top:30px;
     margin-bottom:10px;
+    position:relative;
+    display:inline-block;
+    animation:slideInDown 0.6s ease;
+}
+.tour-heading:after{
+    content:'';
+    position:absolute;
+    bottom:-8px;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg, #28b56f, transparent);
+    transform:scaleX(0);
+    transform-origin:left;
+    animation:slideInUnderline 0.8s ease 0.3s forwards;
+}
+@keyframes slideInDown{
+    from{ opacity:0; transform:translateY(-30px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+@keyframes slideInUnderline{
+    to{ transform:scaleX(1); }
 }
 .tour-block-desc{
     color:grey;
@@ -172,6 +202,18 @@ justify-content:space-around;
     height:45px;
     background-color:white;
     display:flex;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    transition:all 0.3s ease;
+    animation:fadeInUp 0.6s ease;
+}
+.tour-block-white-div:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 24px rgba(40,181,111,0.2);
+}
+@keyframes fadeInUp{
+    from{ opacity:0; transform:translateY(20px); }
+    to{ opacity:1; transform:translateY(0); }
 }
 .month{
     color:grey;
@@ -197,21 +239,81 @@ justify-content:space-around;
 .tour-img-container{
     display:flex;
     justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
 }
 .tour-img-card{
     background-color:white;
     width:240px;
     height:400px;
     margin-top:25px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    animation:cardSlideIn 0.6s ease;
+    transform:translateY(20px);
+    opacity:0;
+}
+.tour-img-card.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+.tour-img-card:hover{
+    transform:translateY(-12px) scale(1.05);
+    box-shadow:0 16px 40px rgba(40,181,111,0.25);
+}
+.tour-img-card img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    transition:transform 0.5s ease;
+}
+.tour-img-card:hover img{
+    transform:scale(1.1);
+}
+@keyframes cardSlideIn{
+    from{ opacity:0; transform:translateY(30px); }
+    to{ opacity:1; transform:translateY(0); }
 }
 .tour-button{
     float:left;
     margin-left:20px;
     margin-top:20px;
+    background-color:#28b56f;
+    color:white;
+    border-radius:6px;
+    padding:8px 16px;
+    transition:all 0.3s ease;
+    position:relative;
+    overflow:hidden;
+}
+.tour-button:before{
+    content:'';
+    position:absolute;
+    top:50%; left:50%;
+    width:0; height:0;
+    border-radius:50%;
+    background:rgba(255,255,255,0.3);
+    transform:translate(-50%, -50%);
+    transition:width 0.6s, height 0.6s;
+}
+.tour-button:hover{
+    background-color:#2ea36a;
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(40,181,111,0.4);
+}
+.tour-button:hover:before{
+    width:300px;
+    height:300px;
+}
+.tour-button:active{
+    transform:translateY(0);
 }
 
 .button:hover{
-    background-color:grey;
+    background-color:#2ea36a;
+    transform:translateY(-2px);
 }
 .tour-image-card-heading ,.tour-image-card-date, .tour-image-card-desc{
     text-align:left;
@@ -219,11 +321,25 @@ justify-content:space-around;
     }
 .tour-image-card-heading{
         font-weight:bold;
+        font-size:18px;
+        margin-top:12px;
+        color:#222;
+        transition:color 0.3s ease;
+    }
+.tour-img-card:hover .tour-image-card-heading{
+        color:#28b56f;
     }
 .tour-image-card-date{
-        color:grey;
-        margin-top:20px;
-        margin-bottom:20px
+        color:#888;
+        margin-top:8px;
+        margin-bottom:10px;
+        font-size:13px;
+        font-weight:500;
+    }
+.tour-image-card-desc{
+        color:#999;
+        font-size:13px;
+        line-height:1.5;
     }
 
 /*****Modal***********/
@@ -327,7 +443,11 @@ justify-content:space-around;
 /***CONTACT**/
 .contact{
     width:100vw;
-    height:50vh;
+    padding:60px 0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+}
+.contact .heading{
+    animation:slideInDown 0.6s ease;
 }
 .contact-desc{
     color:grey;
@@ -337,22 +457,55 @@ justify-content:space-around;
     display:flex;
     justify-content:space-between;
     margin:30px;
+    gap:40px;
+    align-items:flex-start;
 }
 .contact-address{
+    animation:slideInLeft 0.7s ease;
     text-align:left;
     font-size:18px;
+    line-height:2;
 }
+.contact-input{
+    animation:slideInRight 0.7s ease;
+    background:rgba(255,255,255,0.7);
+    padding:20px;
+    border-radius:10px;
+    backdrop-filter:blur(10px);
+}
+@keyframes slideInLeft{
+    from{ opacity:0; transform:translateX(-40px); }
+    to{ opacity:1; transform:translateX(0); }
+}
+@keyframes slideInRight{
+    from{ opacity:0; transform:translateX(40px); }
+    to{ opacity:1; transform:translateX(0); }
 .contact-name-email{
     display:flex;
-  flex-direction:column;
+    flex-direction:column;
+    gap:8px;
 }
 input{
-    width:200px;
-    height:30px;
+    width:100%;
+    height:42px;
     font-size:15px;
     text-align:left;
-    padding-left:10px;
-    margin:5px;
+    padding:10px 14px;
+    margin:10px 0;
+    border:2px solid transparent;
+    border-radius:8px;
+    background:#f5f5f5;
+    transition:all 0.3s ease;
+}
+input:focus{
+    outline:none;
+    background:#fff;
+    border-color:#28b56f;
+    box-shadow:0 0 0 3px rgba(40,181,111,0.1);
+    transform:translateY(-2px);
+}
+input::placeholder{
+    color:#bbb;
 }
 
 /****map***/
